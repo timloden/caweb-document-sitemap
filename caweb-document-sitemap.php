@@ -11,6 +11,16 @@
  * @package         Caweb_doc_sitemap
  */
 
+// updater
+
+require 'plugin-update-checker/plugin-update-checker.php';
+
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/timloden/caweb-document-sitemap',
+	__FILE__,
+	'caweb-doc-sitemap'
+);
+
 // add plugin page under tools
 
 add_action('admin_menu', 'caweb_doc_page_create');
