@@ -57,19 +57,14 @@ function caweb_doc_page() {
     // start admin output
 
     ?>
-    	<div class="wrap">
+	<div class="wrap">
 		<h1>CAWeb Document Sitemap</h1>
 		<form action="<?php echo admin_url('admin-post.php'); ?>" method="post">
-		<input type="hidden" name="action" value="create_doc_sitemap">
-		<?php submit_button('Create Document Sitemap') ?>
+			<input type="hidden" name="action" value="create_doc_sitemap">
+			<?php submit_button('Create Document Sitemap') ?>
 		</form>
+	</div>
 	<?php
-
-
-
-	//caweb_doc_create_xml();
-
-    echo('</div>');
 
 }
 
@@ -78,12 +73,6 @@ add_action( 'admin_post_create_doc_sitemap', 'caweb_doc_create_xml' );
 function caweb_doc_create_xml() {
 	$site_id = get_current_blog_id();
 	$directory = wp_upload_dir();
-
-	if (is_multisite()) {
-		$file = $directory['basedir'] . '/sites/' . $site_id . '/pdf-word-sitemap.xml';
-	} else {
-		$file = $directory['basedir'] . '/pdf-word-sitemap.xml';
-	}
 
 	if ($site_id === 1) {
     	$wp_posts_table = 'wp_posts';
@@ -117,15 +106,11 @@ function caweb_doc_create_xml() {
 
 	$output = $dom->saveXML();
 
+	$file = $directory['basedir'] . '/pdf-word-sitemap.xml';
+
 	$dom->save($file);
 
-	if (is_multisite()) {
-		$file_url = $directory['baseurl'] . '/sites/' . $site_id . '/pdf-word-sitemap.xml';
-
-	} else {
-		$file_url = $directory['baseurl'] . '/pdf-word-sitemap.xml';
-
-	}
+	$file_url = $directory['baseurl'] . '/pdf-word-sitemap.xml';
 
 	wp_redirect(admin_url('admin.php?page=caweb_docuemnt_sitemap&count=' . $count . '&path=' . $file_url .'&message=success'));
 }
@@ -155,11 +140,8 @@ function caweb_doc_deactivation() {
     $directory = wp_upload_dir();
    	$site_id = get_current_blog_id();
 
-    if (is_multisite()) {
-		$file_url = $directory['basedir'] . '/sites/' . $site_id . '/pdf-word-sitemap.xml';
-		wp_delete_file($file_url);
-	} else {
-		$file_url = $directory['basedir'] . '/pdf-word-sitemap.xml';
-		wp_delete_file($file_url);
-	}
+	$file_url = $directory['basedir'] . '/pdf-word-sitemap.xml';
+
+	wp_delete_file($file_url);
+
 }
