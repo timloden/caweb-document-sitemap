@@ -6,7 +6,7 @@
  * Author:          Tim Loden
  * Author URI:      https://caweb.cdt.ca.gov
  * Text Domain:     caweb-doc-sitemap
- * Version:         1.0.0
+ * Version:         1.1.0
  *
  * @package         Caweb_doc_sitemap
  */
